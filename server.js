@@ -210,8 +210,8 @@ function storeFood(req,res) {
         }   
         console.log('connected as id ' + connection.threadId);
       
-        var query = "INSERT INTO ??(??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        var table = ["user_foods", "date", "amount", "item_name", "brand_name", "nf_calories", "nf_total_fat", "nf_saturated_fat", "nf_trans_fatty_acid", "nf_polyunsaturated_fat", "nf_monounsaturated_fat", "nf_cholesterol", "nf_sodium", "nf_total_carbohydrate", "nf_dietary_fiber", "nf_sugars", "nf_protein", "nf_vitamin_a_dv", "nf_vitamin_c_dv", "nf_calcium_dv", "nf_iron_dv", "nf_serving_size_qty", "nf_serving_size_unit", "nf_serving_weight_grams", "allergen_contains_milk", "allergen_contains_eggs", "allergen_contains_fish", "allergen_contains_tree_nuts", "allergen_contains_peanuts", "allergen_contains_wheat", "allergen_contains_soybeans", "allergen_contains_gluten", "email", req.body.date, req.body.amount, req.body.item_name, req.body.brand_name, req.body.nf_calories, req.body.nf_total_fat, req.body.nf_saturated_fat, req.body.nf_trans_fatty_acid, req.body.nf_polyunsaturated_fat, req.body.nf_monounsaturated_fat, req.body.nf_cholesterol, req.body.nf_sodium, req.body.nf_total_carbohydrate, req.body.nf_dietary_fiber, req.body.nf_sugars, req.body.nf_protein, req.body.nf_vitamin_a_dv, req.body.nf_vitamin_c_dv, req.body.nf_calcium_dv, req.body.nf_iron_dv, req.body.nf_serving_size_qty, req.body.nf_serving_size_unit, req.body.nf_serving_weight_grams, req.body.allergen_contains_milk, req.body.allergen_contains_eggs, req.body.allergen_contains_fish, req.body.allergen_contains_tree_nuts, req.body.allergen_contains_peanuts, req.body.allergen_contains_wheat, req.body.allergen_contains_soybeans, req.body.allergen_contains_gluten, req.body.email];
+        var query = "INSERT INTO ??(??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var table = ["user_foods", "date", "amount", "item_id", "item_name", "brand_name", "nf_calories", "nf_total_fat", "nf_saturated_fat", "nf_trans_fatty_acid", "nf_polyunsaturated_fat", "nf_monounsaturated_fat", "nf_cholesterol", "nf_sodium", "nf_total_carbohydrate", "nf_dietary_fiber", "nf_sugars", "nf_protein", "nf_vitamin_a_dv", "nf_vitamin_c_dv", "nf_calcium_dv", "nf_iron_dv", "nf_serving_size_qty", "nf_serving_size_unit", "nf_serving_weight_grams", "allergen_contains_milk", "allergen_contains_eggs", "allergen_contains_fish", "allergen_contains_tree_nuts", "allergen_contains_peanuts", "allergen_contains_wheat", "allergen_contains_soybeans", "allergen_contains_gluten", "email", req.body.date, req.body.amount, req.body.item_id, req.body.item_name, req.body.brand_name, req.body.nf_calories, req.body.nf_total_fat, req.body.nf_saturated_fat, req.body.nf_trans_fatty_acid, req.body.nf_polyunsaturated_fat, req.body.nf_monounsaturated_fat, req.body.nf_cholesterol, req.body.nf_sodium, req.body.nf_total_carbohydrate, req.body.nf_dietary_fiber, req.body.nf_sugars, req.body.nf_protein, req.body.nf_vitamin_a_dv, req.body.nf_vitamin_c_dv, req.body.nf_calcium_dv, req.body.nf_iron_dv, req.body.nf_serving_size_qty, req.body.nf_serving_size_unit, req.body.nf_serving_weight_grams, req.body.allergen_contains_milk, req.body.allergen_contains_eggs, req.body.allergen_contains_fish, req.body.allergen_contains_tree_nuts, req.body.allergen_contains_peanuts, req.body.allergen_contains_wheat, req.body.allergen_contains_soybeans, req.body.allergen_contains_gluten, req.body.email];
        
 
         query = mysql.format(query,table);
@@ -267,7 +267,7 @@ function getFoods(req,res) {
 // DELETE SPECIFIC FOODS
 // Delete request to user specific food
 // ------------------------------------
-app.delete("/food/:item_name/:date/:email",function(req,res){
+app.delete("/food/:item_id/:date/:email",function(req,res){
         deleteFood(req,res);
 });
 
@@ -280,7 +280,7 @@ function deleteFood(req,res) {
         console.log('connected as id ' + connection.threadId);
           
         var query = "DELETE FROM ?? WHERE ??=? AND ??=? AND ??=?";
-        var table = ["user_foods","item_name", req.params.item_name, "date", req.params.date, "email",req.params.email];
+        var table = ["user_foods","item_id", req.params.item_id, "date", req.params.date, "email",req.params.email];
         query = mysql.format(query,table);
         console.log(query);
         connection.query(query,function(err,rows){
