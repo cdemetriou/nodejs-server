@@ -288,7 +288,7 @@ function deleteFood(req,res) {
         if(err) {
             res.json({"Error" : true, "Message" : "Error executing MySQL query"});
         } else {
-            res.json({"Error" : false, "Message" : "Success", "Food with title "+req.body.item_name+"removed."});
+            res.json({"Error" : false, "Message" : "Food with title "+ req.body.item_name + "removed."});
         }
         });
     });
