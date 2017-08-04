@@ -263,6 +263,37 @@ function getFoods(req,res) {
 
 
 
+// ------------------------------------
+// DELETE SPECIFIC FOODS
+// Delete request to user specific food
+// ------------------------------------
+app.delete("/food/:item_name/:date/:email",function(req,res){
+        deleteFood(req,res);
+});
+
+function deleteFood(req,res) {
+    pool.getConnection(function(err,connection){
+        if (err) {
+            res.json({"code" : 100, "status" : "Error in connection database"});
+            return;
+        }   
+        console.log('connected as id ' + connection.threadId);
+          
+        var query = "DELETE FROM ?? WHERE ??=? AND ??=? AND ??=?";
+        var table = ["user_foods","item_name", req.params.item_name, "date", req.params.date, "email",req.params.email];
+        query = mysql.format(query,table);
+        console.log(query);
+        connection.query(query,function(err,rows){
+        connection.release();
+        if(err) {
+            res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+        } else {
+            res.json({"Error" : false, "Message" : "Success", "Food with title "+req.body.item_name+"removed."});
+        }
+        });
+    });
+}
+
 app.listen(3000,function(){
     console.log("All right ! I am alive at Port 3000.");
 });
