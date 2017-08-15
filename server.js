@@ -9,11 +9,11 @@ app.use(bodyParser.json());
 
 var pool    =  mysql.createPool({
     connectionLimit : 50,
-    host     : 'mydb-nutrition-instance.cxt3t0bxrj5q.eu-central-1.rds.amazonaws.com',
+    host     : 'HOST',
     port     : '3306',
-    user     : 'christos',
-    password : 'Dare.2208',
-    database : 'myNutritionDB',
+    user     : 'MASTER_USERNAME',
+    password : 'PASSWORD',
+    database : 'DB_NAME',
     debug    :  false
 });
 
