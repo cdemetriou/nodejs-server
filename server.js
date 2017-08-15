@@ -9,11 +9,11 @@ app.use(bodyParser.json());
 
 var pool    =  mysql.createPool({
     connectionLimit : 50,
-    host     : 'HOST_ADRESS',
-    port     : 'PORT',
-    user     : 'MASTER_USERNAME',
-    password : 'MASTER_PASSWORD',
-    database : 'DB_NAME',
+    host     : 'mydb-nutrition-instance.cxt3t0bxrj5q.eu-central-1.rds.amazonaws.com',
+    port     : '3306',
+    user     : 'christos',
+    password : 'Dare.2208',
+    database : 'myNutritionDB',
     debug    :  false
 });
 
@@ -279,7 +279,7 @@ function deleteFood(req,res) {
         }   
         console.log('connected as id ' + connection.threadId);
           
-        var query = "DELETE FROM ?? WHERE ??=? AND ??=? AND ??=?";
+        var query = "DELETE FROM ?? WHERE ??=? AND ??=? AND ??=? LIMIT 1";
         var table = ["user_foods","item_id", req.params.item_id, "date", req.params.date, "email",req.params.email];
         query = mysql.format(query,table);
         console.log(query);
